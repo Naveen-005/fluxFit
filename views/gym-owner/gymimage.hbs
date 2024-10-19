@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Upload Form</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Additional Styles */
+    .preview-image {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4">Upload Images</h2>
+    <form id="imageUploadForm"  action="/gymowner/imageupload" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="image1">Image 1</label>
+        <input type="file" class="form-control-file" id="image1" name="photos" accept="image/*" onchange="validateAndPreviewImage(event, 'preview1')" required>
+        <img id="preview1" class="mt-2 img-thumbnail preview-image" alt="Preview Image">
+      </div>
+
+      <div class="form-group">
+        <label for="image2">Image 2</label>
+        <input type="file" class="form-control-file" id="image2" name="photos" accept="image/*" onchange="validateAndPreviewImage(event, 'preview2')" required>
+        <img id="preview2" class="mt-2 img-thumbnail preview-image" alt="Preview Image">
+      </div>
+
+      <div class="form-group">
+        <label for="image3">Image 3</label>
+        <input type="file" class="form-control-file" id="image3" name="photos" accept="image/*" onchange="validateAndPreviewImage(event, 'preview3')" required>
+        <img id="preview3" class="mt-2 img-thumbnail preview-image" alt="Preview Image">
+      </div>
+      
+      <div class="form-group">
+        <label for="image4">Image 4</label>
+        <input type="file" class="form-control-file" id="image4" accept="image/*" name="photos" onchange="validateAndPreviewImage(event, 'preview4')" required>
+        <img id="preview4" class="mt-2 img-thumbnail preview-image" alt="Preview Image">
+      </div>
+      <div class="form-group">
+        <label for="image5">Image 5</label>
+        <input type="file" class="form-control-file" id="image5" accept="image/*" name="photos" onchange="validateAndPreviewImage(event, 'preview5')" required>
+        <img id="preview5" class="mt-2 img-thumbnail preview-image" alt="Preview Image">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS and jQuery (required for Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Function to validate image size and preview image
+    function validateAndPreviewImage(event, previewId) {
+      var file = event.target.files[0];
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Maximum allowed file size is 2 MB.");
+        event.target.value = ""; // Clear the file input
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function() {
+        var output = document.getElementById(previewId);
+        output.src = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
+
+{{!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<form action="/gymowner/imageupload" method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="field1">Field 1</label>
+    <input type="file" id="field1" name="photos">
+  </div>
+  <div class="form-group">
+    <label for="field2">Field 2</label>
+    <input type="file" id="field2" name="photos">
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+</body>
+</html> --}}

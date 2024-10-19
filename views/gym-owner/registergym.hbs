@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Information Form</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h2>Gym Information Form</h2>
+    <p><em>Please select the holiday days:</em></p>
+    <form id="gymForm" action="/gymowner/registergym" method="post">
+      <div class="form-group">
+        <label for="gymName">Name of the Gym:</label>
+        <input type="text" class="form-control" id="gymName" name="gymName" placeholder="Enter gym name" required>
+      </div>
+      <div class="form-group">
+        <label for="membershipFee">Membership Fee:</label>
+        <input type="number" class="form-control" id="membershipFee" name="membershipFee" placeholder="Enter membership fee" required>
+      </div>
+      <div class="form-group">
+        <label for="monthlyFees">Monthly Fees:</label>
+        <input type="number" class="form-control" id="monthlyFees" name="monthlyFees" placeholder="Enter monthly fees" required>
+      </div>
+      <div class="form-group">
+        <label for="peakTime">Morning Peak Time:</label>
+        <div class="input-group">
+          <input type="time" class="form-control" id="morningPeakStartTime" name="morningPeakStartTime" required>
+          <div class="input-group-prepend input-group-append">
+            <span class="input-group-text">to</span>
+          </div>
+          <input type="time" class="form-control" id="morningPeakEndTime" name="morningPeakEndTime" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nightPeakTime">Night Peak Time:</label>
+        <div class="input-group">
+          <input type="time" class="form-control" id="nightPeakStartTime" name="nightPeakStartTime" required>
+          <div class="input-group-prepend input-group-append">
+            <span class="input-group-text">to</span>
+          </div>
+          <input type="time" class="form-control" id="nightPeakEndTime" name="nightPeakEndTime" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label><strong>Holiday Days:</strong></label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="monday" name="holidayDays" value="Monday">
+          <label class="form-check-label" for="monday">Monday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="tuesday" name="holidayDays" value="Tuesday">
+          <label class="form-check-label" for="tuesday">Tuesday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="wednesday" name="holidayDays" value="Wednesday">
+          <label class="form-check-label" for="wednesday">Wednesday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="thursday" name="holidayDays" value="Thursday">
+          <label class="form-check-label" for="thursday">Thursday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="friday" name="holidayDays" value="Friday">
+          <label class="form-check-label" for="friday">Friday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="saturday" name="holidayDays" value="Saturday">
+          <label class="form-check-label" for="saturday">Saturday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="sunday" name="holidayDays" value="Sunday">
+          <label class="form-check-label" for="sunday">Sunday</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gymDescription">Short Description:</label>
+        <textarea class="form-control" id="gymDescription" name="gymDescription" rows="3" placeholder="Enter a short description of the gym" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    <p><em>Note: You can inform us about changes in holiday days through this form.</em></p>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

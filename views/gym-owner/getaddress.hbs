@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Location Selector</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="form-group">
+      <input type="text" class="form-control" id="locationInput" placeholder="Type a location">
+      <button class="btn btn-primary mt-2" onclick="findLocation()">Find</button>
+    </div>
+    <form id="locationForm" action="/gymowner/address" method="POST">
+      <div class="form-group">
+        <input type="text" class="form-control" id="coordinates" name="coordinates" placeholder="Coordinates" readonly>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="address" name="address" placeholder="Address" readonly>
+      </div>
+      <button type="submit" class="btn btn-success">Confirm</button>
+    </form>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+  <script>
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Set initial view point to India
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    var geocoder = L.Control.Geocoder.nominatim();
+
+    var marker;
+
+    function onMapClick(e) {
+      if (marker) {
+        map.removeLayer(marker);
+      }
+      marker = L.marker(e.latlng).addTo(map);
+      updateInputs(e.latlng);
+    }
+
+    function updateInputs(latlng) {
+      geocoder.reverse(latlng, map.options.crs.scale(map.getZoom()), function(results) {
+        var address = results[0].name || "";
+        var coordinates = latlng.lat.toFixed(6) + ", " + latlng.lng.toFixed(6);
+        document.getElementById('coordinates').value = coordinates;
+        document.getElementById('address').value = address;
+      });
+    }
+
+    map.on('click', onMapClick);
+
+    function findLocation() {
+      var location = document.getElementById('locationInput').value;
+      geocoder.geocode(location, function(results) {
+        if (results.length > 0) {
+          var latlng = results[0].center;
+          map.setView(latlng, 15); // Zoom level 15
+          if (marker) {
+            map.removeLayer(marker);
+          }
+          marker = L.marker(latlng).addTo(map);
+          updateInputs(latlng);
+        } else {
+          alert('Location not found');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
